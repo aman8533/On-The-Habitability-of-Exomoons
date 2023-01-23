@@ -1,0 +1,239 @@
+*******************************************************************************
+ Revised: Apr 22, 2021             Despina / (Neptune)                      805
+
+ SATELLITE PHYSICAL PROPERTIES:
+  Mean radius (km)        = 74 +- 10        Mean dens (g cm^-3)= 1.0304 +- 2.27
+  GM (km^3/s^2)           = 0.11673 +- 0.25 Geometric Albedo   = 0.06 
+                                            V(1,0)             = +7.9 
+
+ SATELLITE ORBITAL DATA (mean values wrt Laplace plane):
+  Semi-major axis, a (km) = 52.5(10^3)      Orbital period     = 0.334656 d
+  Eccentricity, e         = 0.0             Rotational period  = 
+  Inclination, i  (deg)   = 0.0
+
+ Fit to all reported data through 2020 (Voyager 2, ground, HST)
+*******************************************************************************
+
+
+*******************************************************************************
+Ephemeris / WWW_USER Sun Jun 19 14:52:27 2022 Pasadena, USA      / Horizons    
+*******************************************************************************
+Target body name: Despina (805)                   {source: nep097f_merged}
+Center body name: Earth-Moon Barycenter (3)       {source: DE441}
+Center-site name: BODYCENTRIC
+*******************************************************************************
+Start time      : A.D. 2022-Jun-16 00:00:00.0000 UT      
+Stop  time      : A.D. 2022-Jul-16 00:00:00.0000 UT      
+Step-size       : 1440 minutes
+*******************************************************************************
+Target pole/equ : IAU_DESPINA                     {West-longitude positive}
+Target radii    : 74.0 x 74.0 x 74.0 km           {Equator, meridian, pole}    
+Center geodetic : 0.00000000,0.00000000,0.0000000 {E-lon(deg),Lat(deg),Alt(km)}
+Center cylindric: 0.00000000,0.00000000,0.0000000 {E-lon(deg),Dxy(km),Dz(km)}
+Center pole/equ : ICRF
+Center radii    : (undefined)                                                  
+Target primary  : Neptune
+Vis. interferer : None
+Rel. light bend : Sun, EARTH                      {source: DE441}
+Rel. lght bnd GM: 1.3271E+11, 3.9860E+05 km^3/s^2                              
+Atmos refraction: NO (AIRLESS)
+RA format       : HMS
+Time format     : CAL 
+EOP file        : eop.220617.p220909                                           
+EOP coverage    : DATA-BASED 1962-JAN-20 TO 2022-JUN-17. PREDICTS-> 2022-SEP-08
+Units conversion: 1 au= 149597870.700 km, c= 299792.458 km/s, 1 day= 86400.0 s 
+Table cut-offs 1: Elevation (-90.0deg=NO ),Airmass     n.a.    , Daylight (NO )
+Table cut-offs 2: Solar elongation (  0.0,180.0=NO ),Local Hour Angle( 0.0=NO )
+Table cut-offs 3: RA/DEC angular rate (     0.0=NO )                           
+******************************************************************************************************************************************************************************
+ Date__(UT)__HR:MN     R.A._____(ICRF)_____DEC    APmag   S-brt             delta      deldot     S-O-T /r     S-T-O  Sky_motion  Sky_mot_PA  RelVel-ANG  Lun_Sky_Brt  sky_SNR
+******************************************************************************************************************************************************************************
+$$SOE
+ 2022-Jun-16 00:00     23 43 50.44 -03 01 28.4   22.659  11.566  29.9092498038488 -39.0396382   89.4591 /T    1.9471   0.0268035   40.455049   -76.05970         n.a.     n.a.
+ 2022-Jun-17 00:00     23 43 51.89 -03 01 22.1   22.657  11.566  29.8924310412307 -38.7325007   90.4076 /T    1.9476   0.0276252   40.554291   -75.54845         n.a.     n.a.
+ 2022-Jun-18 00:00     23 43 53.23 -03 01 16.7   22.656  11.566  29.8756133978586 -38.3672481   91.3563 /T    1.9475   0.0283691   40.733116   -75.04947         n.a.     n.a.
+ 2022-Jun-19 00:00     23 43 54.45 -03 01 12.1   22.655  11.566  29.8588012196709 -37.9450533   92.3055 /T    1.9468   0.0290270   40.982020   -74.56507         n.a.     n.a.
+ 2022-Jun-20 00:00     23 43 55.55 -03 01 08.2   22.654  11.566  29.8419992976685 -37.4674239   93.2551 /T    1.9457   0.0295885   41.294032   -74.09933         n.a.     n.a.
+ 2022-Jun-21 00:00     23 43 56.52 -03 01 05.1   22.653  11.566  29.8252126698289 -36.9367014   94.2051 /T    1.9439   0.0300425   41.663782   -73.65715         n.a.     n.a.
+ 2022-Jun-22 00:00     23 43 57.38 -03 01 02.8   22.651  11.566  29.8084461493232 -36.3562968   95.1555 /T    1.9416   0.0303793   42.083557   -73.24382         n.a.     n.a.
+ 2022-Jun-23 00:00     23 43 58.11 -03 01 01.3   22.650  11.566  29.7917041055179 -35.7298769   96.1063 /T    1.9388   0.0305919   42.545509   -72.86372         n.a.     n.a.
+ 2022-Jun-24 00:00     23 43 58.72 -03 01 00.5   22.649  11.566  29.7749907229526 -35.0602433   97.0576 /T    1.9354   0.0306770   43.046915   -72.51977         n.a.     n.a.
+ 2022-Jun-25 00:00     23 43 59.22 -03 01 00.5   22.648  11.566  29.7583104351731 -34.3500514   98.0093 /T    1.9314   0.0306290   43.587559   -72.21646         n.a.     n.a.
+ 2022-Jun-26 00:00     23 43 59.59 -03 01 01.4   22.646  11.566  29.7416681252107 -33.6021140   98.9615 /T    1.9269   0.0304415   44.169495   -71.95967         n.a.     n.a.
+ 2022-Jun-27 00:00     23 43 59.84 -03 01 02.9   22.645  11.566  29.7250688556919 -32.8201788   99.9141 /T    1.9219   0.0301071   44.795342   -71.75721         n.a.     n.a.
+ 2022-Jun-28 00:00     23 43 59.97 -03 01 05.3   22.644  11.566  29.7085174250691 -32.0085206  100.8672 /T    1.9162   0.0296201   45.466303   -71.61744         n.a.     n.a.
+ 2022-Jun-29 00:00     23 43 59.98 -03 01 08.4   22.643  11.566  29.6920181799516 -31.1717371  101.8208 /T    1.9101   0.0289789   46.182846   -71.54786         n.a.     n.a.
+ 2022-Jun-30 00:00     23 43 59.87 -03 01 12.3   22.642  11.566  29.6755753287134 -30.3135005  102.7748 /T    1.9034   0.0281837   46.950753   -71.55579         n.a.     n.a.
+ 2022-Jul-01 00:00     23 43 59.64 -03 01 17.0   22.640  11.566  29.6591933758122 -29.4372025  103.7294 /T    1.8961   0.0272337   47.780494   -71.65028         n.a.     n.a.
+ 2022-Jul-02 00:00     23 43 59.30 -03 01 22.4   22.639  11.566  29.6428772590722 -28.5463684  104.6844 /T    1.8883   0.0261271   48.687174   -71.84287         n.a.     n.a.
+ 2022-Jul-03 00:00     23 43 58.83 -03 01 28.6   22.638  11.566  29.6266320357853 -27.6449799  105.6400 /T    1.8799   0.0248619   49.691223   -72.14767         n.a.     n.a.
+ 2022-Jul-04 00:00     23 43 58.24 -03 01 35.5   22.637  11.566  29.6104624388850 -26.7382444  106.5960 /T    1.8710   0.0234383   50.815023   -72.58046         n.a.     n.a.
+ 2022-Jul-05 00:00     23 43 57.54 -03 01 43.2   22.636  11.566  29.5943727687398 -25.8305800  107.5526 /T    1.8616   0.0218605   52.090335   -73.15617         n.a.     n.a.
+ 2022-Jul-06 00:00     23 43 56.72 -03 01 51.6   22.634  11.566  29.5783672335187 -24.9259407  108.5097 /T    1.8516   0.0201351   53.567922   -73.89019         n.a.     n.a.
+ 2022-Jul-07 00:00     23 43 55.78 -03 02 00.8   22.633  11.566  29.5624503705596 -24.0274326  109.4673 /T    1.8410   0.0182688   55.331242   -74.79946         n.a.     n.a.
+ 2022-Jul-08 00:00     23 43 54.72 -03 02 10.7   22.632  11.566  29.5466271247367 -23.1383873  110.4255 /T    1.8300   0.0162691   57.514740   -75.90308         n.a.     n.a.
+ 2022-Jul-09 00:00     23 43 53.55 -03 02 21.4   22.631  11.566  29.5309024991840 -22.2630541  111.3842 /T    1.8183   0.0141465   60.344227   -77.22003         n.a.     n.a.
+ 2022-Jul-10 00:00     23 43 52.26 -03 02 32.7   22.630  11.566  29.5152811219988 -21.4059808  112.3435 /T    1.8062   0.0119216   64.225434   -78.76173         n.a.     n.a.
+ 2022-Jul-11 00:00     23 43 50.86 -03 02 44.8   22.629  11.566  29.4997672047391 -20.5711936  113.3033 /T    1.7935   0.0096345   69.966792   -80.51857         n.a.     n.a.
+ 2022-Jul-12 00:00     23 43 49.34 -03 02 57.7   22.628  11.566  29.4843649105459 -19.7616211  114.2637 /T    1.7803   0.0073726   79.384160   -82.42601         n.a.     n.a.
+ 2022-Jul-13 00:00     23 43 47.71 -03 03 11.2   22.626  11.566  29.4690787644898 -18.9798691  115.2246 /T    1.7666   0.0053628   96.805962   -84.25247         n.a.     n.a.
+ 2022-Jul-14 00:00     23 43 45.97 -03 03 25.4   22.625  11.566  29.4539136605874 -18.2284414  116.1862 /T    1.7523   0.0042411   129.11111   -85.26464         n.a.     n.a.
+ 2022-Jul-15 00:00     23 43 44.11 -03 03 40.4   22.624  11.566  29.4388744865827 -17.5106836  117.1483 /T    1.7376   0.0048908   166.43384   -84.32394         n.a.     n.a.
+ 2022-Jul-16 00:00     23 43 42.14 -03 03 56.0   22.623  11.566  29.4239657111039 -16.8300887  118.1110 /T    1.7223   0.0069517   189.12075   -81.64243         n.a.     n.a.
+$$EOE
+******************************************************************************************************************************************************************************
+Column meaning:
+ 
+TIME
+
+  Times PRIOR to 1962 are UT1, a mean-solar time closely related to the
+prior but now-deprecated GMT. Times AFTER 1962 are in UTC, the current
+civil or "wall-clock" time-scale. UTC is kept within 0.9 seconds of UT1
+using integer leap-seconds for 1972 and later years.
+
+  Conversion from the internal Barycentric Dynamical Time (TDB) of solar
+system dynamics to the non-uniform civil UT time-scale requested for output
+has not been determined for UTC times after the next July or January 1st.
+Therefore, the last known leap-second is used as a constant over future
+intervals.
+
+  Time tags refer to the UT time-scale conversion from TDB on Earth
+regardless of observer location within the solar system, although clock
+rates may differ due to the local gravity field and no analog to "UT"
+may be defined for that location.
+
+  Any 'b' symbol in the 1st-column denotes a B.C. date. First-column blank
+(" ") denotes an A.D. date. Calendar dates prior to 1582-Oct-15 are in the
+Julian calendar system. Later calendar dates are in the Gregorian system.
+
+  NOTE: "n.a." in output means quantity "not available" at the print-time.
+ 
+ 'R.A._____(ICRF)_____DEC' =
+  Astrometric right ascension and declination of the target center with
+respect to the observing site (coordinate origin) in the reference frame of
+the planetary ephemeris (ICRF). Compensated for down-leg light-time delay
+aberration.
+
+  Units: RA  in hours-minutes-seconds of time,    HH MM SS.ff{ffff}
+         DEC in degrees-minutes-seconds of arc,  sDD MN SC.f{ffff}
+ 
+ 'APmag   S-brt' =
+  The targets' approximate apparent visual magnitude and surface brightness.
+For planets and natural satellites, output is restricted to solar phase angles
+covered by observational data. Outside the observed phase angle range, "n.a."
+may be output to avoid extrapolation beyond the limit of model validity.
+
+   For Earth-based observers, the estimated dimming due to atmospheric
+absorption (extinction) is available as a separate, requestable quantity.
+
+   Surface brightness is the average airless visual magnitude of a
+square-arcsecond of the illuminated portion of the apparent disk. It is
+computed only if the target radius is known.
+
+   Units: MAGNITUDES & MAGNITUDES PER SQUARE ARCSECOND
+ 
+ 'delta      deldot' =
+   Apparent range ("delta", light-time aberrated) and range-rate ("delta-dot")
+of the target center relative to the observer. A positive "deldot" means the
+target center is moving away from the observer, negative indicates movement
+toward the observer.  Units: AU and KM/S
+ 
+ 'S-O-T /r' =
+   Sun-Observer-Target apparent SOLAR ELONGATION ANGLE seen from the observers'
+location at print-time.
+
+   The '/r' column provides a code indicating the targets' apparent position
+relative to the Sun in the observers' sky, as described below:
+
+   Case A: For an observing location on the surface of a rotating body, that
+body rotational sense is considered:
+
+    /T indicates target TRAILS Sun   (evening sky: rises and sets AFTER Sun)
+    /L indicates target LEADS Sun    (morning sky: rises and sets BEFORE Sun)
+
+   Case B: For an observing point that does not have a rotational model (such
+as a spacecraft), the "leading" and "trailing" condition is defined by the
+observers' heliocentric ORBITAL motion:
+
+    * If continuing in the observers' current direction of heliocentric
+       motion would encounter the targets' apparent longitude first, followed
+       by the Sun's, the target LEADS the Sun as seen by the observer.
+
+    * If the Sun's apparent longitude would be encountered first, followed
+       by the targets', the target TRAILS the Sun.
+
+   Two other codes can be output:
+    /* indicates observer is Sun-centered    (undefined)
+    /? Target is aligned with Sun center     (no lead or trail)
+
+   The S-O-T solar elongation angle is numerically the minimum separation
+angle of the Sun and target in the sky in any direction. It does NOT indicate
+the amount of separation in the leading or trailing directions, which would
+be defined along the equator of a spherical coordinate system.
+
+   Units: DEGREES
+ 
+ 'S-T-O' =
+   The Sun-Target-Observer angle; the interior vertex angle at target center
+formed by a vector from the target to the apparent center of the Sun (at
+reflection time on the target) and the apparent vector from target to the
+observer at print-time. Slightly different from true PHASE ANGLE (requestable
+separately) at the few arcsecond level in that it includes stellar aberration
+on the down-leg from target to observer.  Units: DEGREES
+ 
+ 'Sky_motion  Sky_mot_PA  RelVel-ANG' =
+  Total apparent angular rate of the target in the plane-of-sky. "Sky_mot_PA"
+is the position angle of the target's direction of motion in the plane-of-sky,
+measured counter-clockwise from the apparent of-date north pole direction.
+"RelVel-ANG" is the flight path angle of the target's relative motion with
+respect to the observer's line-of-sight, in the range [-90,+90], where positive
+values indicate motion away from the observer, negative values are toward the
+observer:
+
+  -90 = target is moving directly toward the observer
+    0 = target is moving at right angles to the observer's line-of-sight
+  +90 = target is moving directly away from the observer
+
+UNITS:  ARCSECONDS/MINUTE, DEGREES, DEGREES
+ 
+ 'Lun_Sky_Brt  sky_SNR' =
+  Sky brightness due to moonlight scattered by Earth's atmosphere at the
+target's position in the sky. "sky_SNR" is the visual signal-to-noise ratio
+(SNR) of the target's surface brightness relative to background sky. Output
+only for topocentric Earth observers when both the Moon and target are above
+the local horizon and the Sun is in astronomical twilight (or further) below
+the horizon, and the target is not the Moon or Sun. If all conditions are
+not met, "n.a." is output. Galactic brightness, local sky light-pollution
+and weather are NOT considered. Lunar opposition surge is considered. The
+value returned is accurate under ideal conditions at the approximately 8-23%
+level, so is a useful but not definitive value.
+
+  If the target-body radius is also known, "sky_SNR" is output. This is the
+approximate visual signal-to-noise ratio of the target's brightness divided
+by lunar sky brightness. When sky_SNR < 1, the target is dimmer than the
+ideal moonlight-scattering background sky, so unlikely to be detectable at
+visual wavelengths. In practice, visibility requires sky_SNR > 1 and a
+detector sensitive enough to reach the target's magnitude, even if it isn't
+washed out by moonlight. When relating magnitudes and brightness values,
+keep in mind their logarithmic relationship m2-m1 = -2.5*log_10(b2/b1).
+
+  UNITS: VISUAL MAGNITUDES / ARCSECOND^2, and unitless ratio
+
+Computations by ...
+
+    Solar System Dynamics Group, Horizons On-Line Ephemeris System
+    4800 Oak Grove Drive, Jet Propulsion Laboratory
+    Pasadena, CA  91109   USA
+
+    General site: https://ssd.jpl.nasa.gov/
+    Mailing list: https://ssd.jpl.nasa.gov/email_list.html
+    System news : https://ssd.jpl.nasa.gov/horizons/news.html
+    User Guide  : https://ssd.jpl.nasa.gov/horizons/manual.html
+    Connect     : browser        https://ssd.jpl.nasa.gov/horizons/app.html#/x
+                  API            https://ssd-api.jpl.nasa.gov/doc/horizons.html
+                  command-line   telnet ssd.jpl.nasa.gov 6775
+                  e-mail/batch   https://ssd.jpl.nasa.gov/ftp/ssd/hrzn_batch.txt
+                  scripts        https://ssd.jpl.nasa.gov/ftp/ssd/SCRIPTS
+    Author      : Jon.D.Giorgini@jpl.nasa.gov
+
+******************************************************************************************************************************************************************************

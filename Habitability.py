@@ -3,7 +3,7 @@
 import math
 import csv
 from mpl_toolkits.mplot3d import Axes3D
-#import powerlaw
+import powerlaw
 
 ## Other main packages
 from astropy.time import Time
@@ -43,45 +43,6 @@ def rndmPLaw(a, b, g, size=1):
     r = np.random.random(size=size)
     ag, bg = a**g, b**g
     return (ag + (bg - ag)*r)**(1./g)
-
-def plot_MassVsSemiMajor(npSemiMajor, npmassofMoons):
-
-    plt.subplots()
-
-    plt.scatter(npSemiMajor, npmassofMoons/(7.34*(10**22)), s=5, c='b')
-
-    xs = npSemiMajor #semiMajor
-    ys = npmassofMoons #temperatureMoons
-
-
-    xmin, xmax = plt.xlim()
-    ymin, ymax = plt.ylim()
-
-    plt.xlim(xmin, xmax)
-    plt.ylim(ymin, ymax)
-
-    plt.xlabel("Semi Major Axis [AU]")
-    plt.ylabel("Mass of Moons in terms of Earth's Moon[Kg]")
-    plt.show()
-
-def plot_MassofStarVsSemiMajor(npSemiMajor, npmassofStars):
-    plt.subplots()
-
-    plt.scatter(npSemiMajor, npmassofStars/(1.99*(10**30)), s=5, c='b')
-
-    xs = npSemiMajor #semiMajor
-    ys = npmassofStars #temperatureMoons
-
-
-    xmin, xmax = plt.xlim()
-    ymin, ymax = plt.ylim()
-
-    plt.xlim(xmin, xmax)
-    plt.ylim(ymin, ymax)
-
-    plt.xlabel("Semi Major Axis [AU]")
-    plt.ylabel("Mass of Stars in terms of Sun's Mass[Kg]")
-    plt.show()
 
 def plot_tempVsSemiMajorFlux(semiMajor, temperatureMoons):
 
@@ -820,7 +781,6 @@ def BuildSatelliteDB():
         lstEccentricty.append(lstEccentricityObj)
     return lstMoon, lstEphemeris, lstAlbedo,lstMeanRad,lstSemiMajor,lstTemp,lstDistHostStar,lstPlanet,lstMPlanetT,lstEccentricty
 
-
 lstMoon, lstEphemeris, lstAlbedo,lstMeanRad,lstSemiMajor,lstTemp,lstDistHostStar,lstPlanet,lstMPlanetT,lstEccentricty = BuildSatelliteDB()
 
 # Examples How to retrieve data from Ephemeris V Brightness illumination
@@ -898,7 +858,7 @@ for tempSM in lstSM1D:
     eccentricity = float(lstEccentricty1D[index])
     semimajor = float(tempSM) * 1.496 * ((10) ** (8)) * 1000
     K_2 = random.uniform(0.4, 0.6)
-    QualityF = random.uniform(0.5, 0.6)
+    QualityF = random.uniform(0.005, 0.006)
     lTidal = ((21 / 2) * (K_2) * ((G) ** (3 / 2)) * ((mplanet) ** (5 / 2)) * ((radius) ** (5)) *
               ((eccentricity) ** (2))) / (QualityF * ((semimajor) ** (15 / 2)))
     pTidal = (lTidal / (4 * math.pi * SB_Constant * ((radius) ** (2))))
@@ -1084,59 +1044,39 @@ lstTempMoon = []
 index = 0
 
 lstsemimajorplanet=[]
-lstMassPlanet = []
 
 for i in range(100):
     distancePlanet = rndmPLaw(0.2, 30.5, g=-0.5, size=1)
-    mPlanet = random.uniform(5.9 * (10 ** 24), 1.9 * (10 ** 27))
     lstsemimajorplanet.append(distancePlanet[0])
-    lstMassPlanet.append(mPlanet)
 
 lstsemimajorplanet.sort()
 
 npSemiMajorPlanet = np.array(lstsemimajorplanet)
-npMassPlanet = np.array(lstMassPlanet)
 
 lstMoon2D = []
-lstMassMoon = []
-lstMoon1D = []
-lstStar1D = []
 for i in range(100):
     distancePlanet = lstsemimajorplanet[i]
     lstSemiMajorMoon=[]
-    mStar = random.uniform(0.2*1.99 * (10 ** 30), 150*1.99 * (10 ** 30))
     for j in range(100):
          distanceMoon = rndmPLaw(0.002, 0.4, g=-0.5, size=1)
          lstSemiMajorMoon.append(distanceMoon[0])
-         mMoon = random.uniform(1.5 * (10 ** 15), 1.5 * (10 ** 23))
-         lstMoon1D.append(distanceMoon[0])
-         lstMassMoon.append(mMoon)
-         lstStar1D.append(mStar)
     lstSemiMajorMoon.sort()
     lstMoon2D.append(lstSemiMajorMoon)
 
 npSemiMajorMoon = np.array(lstMoon2D)
-npSemiMajorMoon1D = np.array(lstMoon1D)
-npMassMoon = np.array(lstMassMoon)
-npMassStar = np.array(lstStar1D)
 
 print("Semi Major Planet = ",npSemiMajorPlanet)
 print("Semi Major Moon = ",npSemiMajorMoon)
-print("Mass of Planet = ", npMassPlanet)
-print("Mass of Moon = ", npMassMoon)
-
-plot_MassVsSemiMajor(npSemiMajorMoon1D,npMassMoon)
-plot_MassofStarVsSemiMajor(npSemiMajorMoon1D,npMassStar)
 
 #mplanet = random.uniform(2 * (10 ** 27), 3 * (10 ** 30))  # Close to Jupiter or higher distribution
 #mplanet = random.uniform(2 * (10 ** 27), 2 * (10 ** 27))  # Close to Jupiter or higher distribution
 
-mplanet = random.uniform(1.9 * (10 ** 27), 1.9 * (10 ** 27))  # Close to Jupiter's mass distribution
+mplanet = random.uniform(5.9 * (10 ** 24), 5.9 * (10 ** 24))  # Close to Earth's mass distribution
 
 #radiusMoon = random.uniform(1800 * 1000, 4000 * 1000)  # Close to Jupiter or higher distribution
 radiusMoon = random.uniform(1800 * 1000, 1800 * 1000)  # Close to Jupiter or higher distribution
 eccentricity = random.uniform(0.003, 0.3)
-K_2 = random.uniform(0.1, 0.5)
+K_2 = random.uniform(0.1, 0.5)b
 QualityF = random.uniform(5, 10)
 for i in range(100):
      normed_MoonPowStelFluxPlusTidal1D = []
@@ -1237,746 +1177,6 @@ lIOTidal = ((21 / 2) * (K_2OverQ) * ((G) ** (3 / 2)) * ((mplanet) ** (5 / 2)) * 
 
 print("IO Tidal Heating",lIOTidal)
 
-eccentricity = 0.009
-radiusMoon = 1560*1000
-semimajor = 671000*1000
-lEuropaTidal = ((21 / 2) * (K_2OverQ) * ((G) ** (3 / 2)) * ((mplanet) ** (5 / 2)) * ((radiusMoon) ** (5)) *
-          ((eccentricity) ** (2))) / (((semimajor) ** (15 / 2)))
-
-print("Europa Tidal Heating",lEuropaTidal)
-
-eccentricity = 0.0013
-radiusMoon = 2634*1000
-semimajor = 1070400*1000
-lGanyTidal = ((21 / 2) * (K_2OverQ) * ((G) ** (3 / 2)) * ((mplanet) ** (5 / 2)) * ((radiusMoon) ** (5)) *
-          ((eccentricity) ** (2))) / (((semimajor) ** (15 / 2)))
-
-print("Ganymede Tidal Heating",lGanyTidal)
-
-
-def HabitableZone(lstParameters):
-    distance = lstParameters[0]
-    radiusMoon = lstParameters[1]
-    albedo = lstParameters[2]
-    lstEccentricity = lstParameters[3]
-    mplanet = lstParameters[4]
-    mMoon = lstParameters[5]
-    semimajorM = lstParameters[6]
-    eccentricityParam = lstParameters[7]
-    power = powerFromAlbedoL(distance, radiusMoon, albedo)
-    print("Power recieved by moon @ 0.3 Albedo = ",power)
-    print("Power recieved by moon @ 0.3 Albedo W/M^2= ",power/((math.pi*radiusMoon**2)))
-    power = power/((math.pi*radiusMoon**2))
-    lstPower2D = []
-    lstAngle2D = []
-    lstColor = []
-    lstHabitableAngleLH = []
-    lstHabitableAngleRH = []
-    # Semi Major = 250k km Power 900-1400 W/M^2
-    count = 0
-    for eccentricity in lstEccentricity:
-        delta = 0.5
-        X = np.arange(0, 360, delta)
-        #radiusMoon = 6370 * 1000
-        #semimajor = 40 * radiusMoon
-        CosX = np.cos(math.pi * X / 180)
-        semimajorVar = semimajorM * (1 - eccentricity ** 2) / (1 - eccentricity * CosX)
-
-        i = 0
-        lstPower = []
-        for semimajor in semimajorVar:
-            K_2OverQ = 0.001
-            mplanet = 25 * 5.97 * (10 ** 24)
-            lTidal = ((21 / 2) * (K_2OverQ) * ((G) ** (3 / 2)) * ((mplanet) ** (5 / 2)) * ((radiusMoon) ** (5)) *
-                      ((eccentricity) ** (2))) / (((semimajor) ** (15 / 2)))
-            print("Power due to insolation is:", power)
-            print ("Tidal = ", "semimajor = ", semimajor, "Power= ", (lTidal) / (4 * math.pi * semimajor ** 2))
-            lPower = power + (lTidal) / (4 * math.pi * semimajor ** 2)
-            print("Power at angle", X[i], "eccentricity = ", eccentricity, "is = ", lPower)
-            lstPower.append(lPower)
-            if ((lPower >= 1250) and (lPower <= 1550) and (eccentricity == eccentricityParam)):
-                if (X[i] <= 180):
-                    lstHabitableAngleLH.append(X[i])
-                elif (X[i] > 180):
-                    lstHabitableAngleRH.append(X[i])
-            i = i + 1
-            if (count == 0):
-                lstColor.append('red')
-            elif (count == 1):
-                lstColor.append('blue')
-            elif (count == 2):
-                lstColor.append('green')
-            elif (count == 3):
-                lstColor.append('yellow')
-            elif (count == 4):
-                lstColor.append('maroon')
-        count = count + 1
-        lstAngle2D.append(X)
-        lstPower2D.append(lstPower)
-
-
-
-    semiminor = semimajorM * (1 - eccentricityParam ** 2) ** (0.5)
-    areaEllipse = semimajorM * semimajorM * (math.pi)
-    pEllipse = 2 * (math.pi) * ((semimajorM ** 3) / (G * (mplanet + mMoon))) ** (0.5)
-
-    if (lstHabitableAngleLH == []):
-        theta1 = 0
-        theta2 = 0
-    else:
-        theta1 = min(lstHabitableAngleLH)
-        theta2 = max(lstHabitableAngleLH)
-    print("Semi Major =", semimajorM)
-    print("Minor =", semiminor)
-    print("Eccentricity = ", eccentricity)
-    print("Planet M =", mplanet)
-    print("Moon M = ", mMoon)
-    print("Radius Moon = ", radiusMoon)
-    print("Eccentricity List = ", lstEccentricity)
-    print("Albedo = ", albedo)
-    print("Distance = ", distance)
-
-    sEllipse = 0.5 * semimajorM * semiminor * ((math.atan(semimajorM * math.tan(theta2) / semiminor)) - (
-        math.atan(semimajorM * math.tan(theta1) / semiminor)))
-    timeElapse1 = (sEllipse / areaEllipse) * pEllipse
-
-    if (lstHabitableAngleRH == []):
-        theta1 = 0
-        theta2 = 0
-    else:
-        theta1 = min(lstHabitableAngleRH)
-        theta2 = max(lstHabitableAngleRH)
-
-    sEllipse = 0.5 * semimajorM * semiminor * ((math.atan(semimajorM * math.tan(theta2) / semiminor)) - (
-        math.atan(semimajorM * math.tan(theta1) / semiminor)))
-    timeElapse2 = (sEllipse / areaEllipse) * pEllipse
-    print ("Total Time orbiting within habitable condition = ", timeElapse1 + timeElapse2)
-    print ("Total orbital time = ", pEllipse)
-    yieldSimul = (timeElapse1 + timeElapse2) / pEllipse
-    print ("Yield Simulation", yieldSimul)
-    print("Habilable Angle LH",lstHabitableAngleLH)
-    print("Habilable Angle Rh", lstHabitableAngleRH)
-
-    return lstHabitableAngleLH, lstHabitableAngleRH,lstAngle2D,lstPower2D,yieldSimul,lstColor
-
-lstParams =[]
-distance = 1
-lstParams.append(distance)
-radiusMoon = 6370 * 1000
-lstParams.append(radiusMoon)
-albedo = 0.3
-lstParams.append(albedo)
-lstEccentricity = [0.25, 0.3, 0.35, 0.4, 0.45]
-lstParams.append(lstEccentricity)
-mplanet = 25 * 5.97 * (10 ** 24)
-lstParams.append(mplanet)
-mMoon = 5.97 * (10 ** 24)
-lstParams.append(mMoon)
-semimajor = 40 * radiusMoon
-lstParams.append(semimajor)
-eccentricity = 0.45
-lstParams.append(eccentricity)
-power = powerFromAlbedoL(distance, radiusMoon, albedo)
-power = power/((math.pi*radiusMoon**2))
-
-lstHabitableAngleLH,lstHabitableAngleRH,lstAngle2D,lstPower2D ,yieldSimul, lstColor = HabitableZone(lstParams)
-
-fig,ax = plt.subplots()
-plt.scatter(lstAngle2D, lstPower2D, s=5, c=lstColor)
-
-xmin, xmax = plt.xlim()
-ymin, ymax = plt.ylim()
-
-plt.xlim(xmin, xmax)
-plt.ylim(ymin, ymax)
-
-
-red_patch = mpatches.Patch(color = 'red', label = 'Eccentricity:0.25')
-blue_patch = mpatches.Patch(color = 'blue', label = 'Eccentricity:0.3')
-green_patch = mpatches.Patch(color = 'green', label = 'Eccentricity:0.35')
-yellow_patch = mpatches.Patch(color = 'yellow', label = 'Eccentricity:0.4')
-maroon_patch = mpatches.Patch(color = 'maroon', label = 'Eccentricity:0.45')
-
-ax.legend(handles = [red_patch,blue_patch,green_patch,yellow_patch,maroon_patch])
-
-plt.xlabel("Orbital Phase [degrees]")
-plt.ylabel("Power [W/M^2]")
-plt.show()
-
-
-lstParams =[]
-lstParams.append(1)
-radiusMoon = 6370 * 1000
-lstParams.append(radiusMoon)
-albedo = 0.3
-lstParams.append(albedo)
-lstEccentricity = [0.001,0.0015, 0.002,0.004,0.008]
-lstParams.append(lstEccentricity)
-mplanet = 25 * 5.97 * (10 ** 24)
-lstParams.append(mplanet)
-mMoon = 5.97 * (10 ** 24)
-lstParams.append(mMoon)
-semimajor = 10 * radiusMoon
-lstParams.append(semimajor)
-eccentricity = 0.008
-lstParams.append(eccentricity)
-
-lstEccentricity = [0.001,0.0015, 0.002,0.004,0.008]
-
-lstHabitableAngleLH,lstHabitableAngleRH,lstAngle2D,lstPower2D ,yieldSimul, lstColor = HabitableZone(lstParams)
-
-fig,ax = plt.subplots()
-plt.scatter(lstAngle2D, lstPower2D, s=5, c=lstColor)
-
-xmin, xmax = plt.xlim()
-ymin, ymax = plt.ylim()
-
-plt.xlim(xmin, xmax)
-plt.ylim(ymin, ymax)
-
-lstEccentricity = [0.001,0.0015, 0.002,0.004,0.008]
-red_patch = mpatches.Patch(color = 'red', label = 'Eccentricity:0.001')
-blue_patch = mpatches.Patch(color = 'blue', label = 'Eccentricity:0.0015')
-green_patch = mpatches.Patch(color = 'green', label = 'Eccentricity:0.002')
-yellow_patch = mpatches.Patch(color = 'yellow', label = 'Eccentricity:0.004')
-maroon_patch = mpatches.Patch(color = 'maroon', label = 'Eccentricity:0.008')
-
-ax.legend(handles = [red_patch,blue_patch,green_patch,yellow_patch,maroon_patch])
-
-plt.xlabel("Orbital Phase [degrees]")
-plt.ylabel("Power [W/M^2]")
-plt.show()
-
-
-lstParams =[]
-lstParams.append(1)
-radiusMoon = 6370 * 1000
-lstParams.append(radiusMoon)
-albedo = 0.3
-lstParams.append(albedo)
-lstEccentricity = [0.002,0.003, 0.008,0.05,0.1]
-lstParams.append(lstEccentricity)
-mplanet = 25 * 5.97 * (10 ** 24)
-lstParams.append(mplanet)
-mMoon = 5.97 * (10 ** 24)
-lstParams.append(mMoon)
-semimajor = 20 * radiusMoon
-lstParams.append(semimajor)
-eccentricity = 0.1
-lstParams.append(eccentricity)
-lstEccentricity = [0.002,0.003, 0.008,0.05,0.1]
-lstHabitableAngleLH,lstHabitableAngleRH,lstAngle2D,lstPower2D ,yieldSimul, lstColor = HabitableZone(lstParams)
-
-fig,ax = plt.subplots()
-plt.scatter(lstAngle2D, lstPower2D, s=5, c=lstColor)
-
-xmin, xmax = plt.xlim()
-ymin, ymax = plt.ylim()
-
-plt.xlim(xmin, xmax)
-plt.ylim(ymin, ymax)
-
-red_patch = mpatches.Patch(color = 'red', label = 'Eccentricity:0.002')
-blue_patch = mpatches.Patch(color = 'blue', label = 'Eccentricity:0.003')
-green_patch = mpatches.Patch(color = 'green', label = 'Eccentricity:0.008')
-yellow_patch = mpatches.Patch(color = 'yellow', label = 'Eccentricity:0.05')
-maroon_patch = mpatches.Patch(color = 'maroon', label = 'Eccentricity:0.1')
-
-
-ax.legend(handles = [red_patch,blue_patch,green_patch,yellow_patch,maroon_patch])
-
-
-plt.xlabel("Orbital Phase [degrees]")
-plt.ylabel("Power [W/M^2]")
-plt.show()
-
-
-
-lstParams =[]
-lstParams.append(1)
-radiusMoon = 6370 * 1000
-lstParams.append(radiusMoon)
-albedo = 0.3
-lstParams.append(albedo)
-lstEccentricity = [0.005,0.01, 0.02,0.05,0.1]
-lstParams.append(lstEccentricity)
-mplanet = 25 * 5.97 * (10 ** 24)
-lstParams.append(mplanet)
-mMoon = 5.97 * (10 ** 24)
-lstParams.append(mMoon)
-semimajor = 40*radiusMoon
-lstParams.append(semimajor)
-eccentricity = 0.05
-lstParams.append(eccentricity)
-
-lstEccentricity = [0.005,0.01, 0.02,0.05,0.1]
-
-lstHabitableAngleLH,lstHabitableAngleRH,lstAngle2D,lstPower2D ,yieldSimul, lstColor = HabitableZone(lstParams)
-
-fig,ax = plt.subplots()
-plt.scatter(lstAngle2D, lstPower2D, s=5, c=lstColor)
-
-xmin, xmax = plt.xlim()
-ymin, ymax = plt.ylim()
-
-plt.xlim(xmin, xmax)
-plt.ylim(ymin, ymax)
-red_patch = mpatches.Patch(color = 'red', label = 'Eccentricity:0.005')
-blue_patch = mpatches.Patch(color = 'blue', label = 'Eccentricity:0.01')
-green_patch = mpatches.Patch(color = 'green', label = 'Eccentricity:0.02')
-yellow_patch = mpatches.Patch(color = 'yellow', label = 'Eccentricity:0.05')
-maroon_patch = mpatches.Patch(color = 'maroon', label = 'Eccentricity:0.1')
-
-ax.legend(handles = [red_patch,blue_patch,green_patch,yellow_patch,maroon_patch])
-
-
-plt.xlabel("Orbital Phase [degrees]")
-plt.ylabel("Power [W/M^2]")
-plt.show()
-
-
-
-lstParams =[]
-lstParams.append(1)
-radiusMoon = 6370 * 1000
-lstParams.append(radiusMoon)
-albedo = 0.3
-lstParams.append(albedo)
-lstEccentricity = [0.005,0.01, 0.02,0.05,0.1]
-lstParams.append(lstEccentricity)
-mplanet = 25 * 5.97 * (10 ** 24)
-lstParams.append(mplanet)
-mMoon = 5.97 * (10 ** 24)
-lstParams.append(mMoon)
-semimajor = 10*radiusMoon
-lstParams.append(semimajor)
-eccentricity = 0.1
-lstParams.append(eccentricity)
-
-lstEccentricity = [0.05,0.08, 0.1,0.15,0.25]
-
-lstHabitableAngleLH,lstHabitableAngleRH,lstAngle2D,lstPower2D ,yieldSimul, lstColor = HabitableZone(lstParams)
-
-fig,ax = plt.subplots()
-plt.scatter(lstAngle2D, lstPower2D, s=5, c=lstColor)
-
-xmin, xmax = plt.xlim()
-ymin, ymax = plt.ylim()
-
-plt.xlim(xmin, xmax)
-plt.ylim(ymin, ymax)
-
-red_patch = mpatches.Patch(color = 'red', label = 'Eccentricity:0.005')
-blue_patch = mpatches.Patch(color = 'blue', label = 'Eccentricity:0.01')
-green_patch = mpatches.Patch(color = 'green', label = 'Eccentricity:0.02')
-yellow_patch = mpatches.Patch(color = 'yellow', label = 'Eccentricity:0.05')
-maroon_patch = mpatches.Patch(color = 'maroon', label = 'Eccentricity:0.1')
-
-ax.legend(handles = [red_patch,blue_patch,green_patch,yellow_patch,maroon_patch])
-
-
-plt.xlabel("Orbital Phase [degrees]")
-plt.ylabel("Power [W/M^2]")
-plt.show()
-
-#Yield Simulation Randomly Distributed Moons
-def YieldSimulation():
-    lstParams = []
-    distance = random.uniform(1, 1) #   distance = random.uniform(0.5, 5)
-    lstParams.append(distance)
-    radiusMoon = random.uniform(6370*1000, 6370*1000) #radiusMoon = random.uniform(2000, 7000)
-    lstParams.append(radiusMoon)
-    albedo = random.uniform(0.3, 0.3) # albedo = random.uniform(0.1, 0.5)
-    lstParams.append(albedo)
-    lstEccentricity = []
-    #lstEccentricity.append(random.uniform(0, 0.7))
-    #lstEccentricity.append(random.uniform(0, 0.7))
-    #lstEccentricity.append(random.uniform(0, 0.7))
-    #lstEccentricity.append(random.uniform(0, 0.7))
-    #lstEccentricity.append(random.uniform(0, 0.7))
-
-    lstEccentricity = []
-    lstEccentricity.append(random.uniform(0.25, 0.25))
-    lstEccentricity.append(random.uniform(0.3, 0.3))
-    lstEccentricity.append(random.uniform(0.35, 0.35))
-    lstEccentricity.append(random.uniform(0.4, 0.4))
-    lstEccentricity.append(random.uniform(0.45, 0.45))
-
-    lstParams.append(lstEccentricity)
-    mplanet = random.uniform(25*5.97 * (10 ** 24), 25*5.97 * (10 ** 24))  #mplanet = random.uniform(5.97 * (10 ** 24), 2* (10 ** 27))
-    lstParams.append(mplanet)
-    mMoon = random.uniform(5.97* (10 ** 24), 5.97* (10 ** 24)) # 5.97 * (10 ** 24) mMoon = random.uniform(2* (10 ** 22), 5.97* (10 ** 24))
-    lstParams.append(mMoon)
-    semimajor = random.uniform(40 * radiusMoon, 40 * radiusMoon) #semimajor = random.uniform(10 * radiusMoon, 50 * radiusMoon)
-    lstParams.append(semimajor)
-    eccentricity = 0.45 # lstEccentricity[random.randint(4,4)] #eccentricity = lstEccentricity[random.randint(0,4)]
-    lstParams.append(eccentricity)
-
-    #New Params
-    lstParams = []
-    distancePlanetStar = 1
-    lstParams.append(distancePlanetStar)
-    radiusMoon = 6370 * 1000
-    lstParams.append(radiusMoon)
-    albedo = 0.3
-    lstParams.append(albedo)
-    lstListEccentricty = []
-    lstEccentricity = [0.001, 0.0015, 0.002, 0.004, 0.008]
-    lstListEccentricty.append(lstEccentricity)
-    lstEccentricity = [0.01, 0.03, 0.06, 0.08, 0.1]
-    lstListEccentricty.append(lstEccentricity)
-    lstEccentricity = [0.1, 0.15, 0.2, 0.25, 0.3]
-    lstListEccentricty.append(lstEccentricity)
-    lstEccentricity = [0.2, 0.3, 0.4, 0.45, 0.5]
-    lstListEccentricty.append(lstEccentricity)
-    lstEccentricity = [0.4, 0.5, 0.6, 0.7, 0.8]
-    lstListEccentricty.append(lstEccentricity)
-    lstEccentricity = [0.002, 0.09, 0.15, 0.45, 0.8]
-    lstListEccentricty.append(lstEccentricity)
-
-    lstEccentricity = lstListEccentricty[random.randint(0,5)]
-    lstParams.append(lstEccentricity)
-    mplanet = 25 * 5.97 * (10 ** 24)
-    lstParams.append(mplanet)
-    mMoon = 5.97 * (10 ** 24)
-    lstParams.append(mMoon)
-    semimajor = 40 * radiusMoon
-    rocheLimitMoon = 2.44*radiusMoon*(mplanet/mMoon)**(1/3)
-    hillRadius = distancePlanetStar*(1-eccentricity)*(mplanet/mMoon)**(1/3)*1.496*(10)**8*1000
-    print("RocheLimit", rocheLimitMoon)
-    print("Hill Radius", hillRadius)
-    semimajor = random.uniform(rocheLimitMoon, hillRadius/2)
-
-    lstParams.append(semimajor)
-    eccentricity = lstEccentricity[random.randint(0,4)]
-    lstParams.append(eccentricity)
-    lstParams.append(rocheLimitMoon)
-    lstParams.append(hillRadius)
- 
-    lstEccentricity = [0.001, 0.0015, 0.002, 0.004, 0.008]
- 
-    lstHabitableAngleLH,lstHabitableAngleRH,lstAngle2D,lstPower2D ,yieldSimul, lstColor = HabitableZone(lstParams)
-    return lstParams,yieldSimul
-
-# Creating Moon Distribution
-
-lstMoon=[]
-
-for i in range(0,5000):
-    lstMoonYield = []
-    lstParams, yieldSimul = YieldSimulation()
-    lstMoonYield.append(lstParams)
-    lstMoonYield.append(yieldSimul)
-    if (yieldSimul > 0):
-        lstMoon.append(lstMoonYield)
-
-print(" Moon Simulation Parameters and Yields",lstMoon)
-
-eccentricity = 0.001
-radiusMoon = 6370*1000
-semimajor = 5*radiusMoon
-K_2OverQ = 0.001
-mplanet = 25*5.97*(10**24)
-lTidal = ((21 / 2) * (K_2OverQ) * ((G) ** (3 / 2)) * ((mplanet) ** (5 / 2)) * ((radiusMoon) ** (5)) *
-          ((eccentricity) ** (2))) / (((semimajor) ** (15 / 2)))
-
-print("Power received by moon due to Tidal Heating eccentricity 0.001 = semimajor = 5*radiusMoon ",(lTidal)/(4*math.pi*semimajor**2))
-lPower = power+(lTidal)/(4*math.pi*semimajor**2)
-
-delta = 5
-x = np.arange(-180, 180, delta)
-y = np.arange(-90, 90, delta)
-X, Y = np.meshgrid(x, y)
-Z1 = np.cos(math.pi*X/180)
-Z2 = np.cos(math.pi*Y/180)
-Z = np.abs(Z1*Z2*power) + (lTidal)/(4*math.pi*semimajor**2)
-fig, ax = plt.subplots()
-CS = plt.contourf(X, Y, Z,cmap='cividis')
-cbar = plt.colorbar();
-cbar.set_label("Power due to Insolation & Tidal Heating - W/M^2")
-plt.xlabel("Longitude")
-plt.ylabel("Latitude")
-plt.show()
-
-
-
-eccentricity = 0.001
-radiusMoon = 6370*1000
-semimajor = 5*radiusMoon
-K_2OverQ = 0.001
-mplanet = 25*5.97*(10**24)
-lTidal = ((21 / 2) * (K_2OverQ) * ((G) ** (3 / 2)) * ((mplanet) ** (5 / 2)) * ((radiusMoon) ** (5)) *
-          ((eccentricity) ** (2))) / (((semimajor) ** (15 / 2)))
-
-print("Power received by moon due to Tidal Heating eccentricity 0.001 = semimajor = 5*radiusMoon ",(lTidal)/(4*math.pi*semimajor**2))
-lPower = power+(lTidal)/(4*math.pi*semimajor**2)
-
-delta = 10
-x = np.arange(-180, 180, delta)
-y = np.arange(-90, 90, delta)
-X, Y = np.meshgrid(x, y)
-Z1 = np.cos(math.pi*X/180)
-Z2 = np.cos(math.pi*Y/180)
-Z = np.abs(Z1*Z2*power) + (lTidal)/(4*math.pi*semimajor**2)
-print ("Latitude", X)
-print ("Longitude", Y)
-print ("Average Orbital Flux Z:", Z)
-
-fig, ax = plt.subplots()
-CS = plt.contourf(X, Y, Z,cmap='cividis')
-cbar = plt.colorbar();
-cbar.set_label("Power due to Insolation & Tidal Heating - W/M^2")
-plt.xlabel("Longitude")
-plt.ylabel("Latitude")
-plt.show()
-
-
-eccentricity = 0.001
-radiusMoon = 6370*1000
-semimajor = 5*radiusMoon
-K_2OverQ = 0.001
-mplanet = 25*5.97*(10**24)
-lTidal = ((21 / 2) * (K_2OverQ) * ((G) ** (3 / 2)) * ((mplanet) ** (5 / 2)) * ((radiusMoon) ** (5)) *
-          ((eccentricity) ** (2))) / (((semimajor) ** (15 / 2)))
-
-lPower = power+(lTidal)/(4*math.pi*semimajor**2)
-print("Power received by moon due to Tidal Heating eccentricity 0.001 = semimajor = 5*radiusMoon ",lPower)
-
-delta = 10
-x = np.arange(-180, 180, delta)
-y = np.arange(-90, 90, delta)
-X, Y = np.meshgrid(x, y)
-Z1 = np.cos(math.pi*X/180)
-Z2 = np.cos(math.pi*Y/180)
-Z = 1.17*(np.abs(Z1*Z2*power) + (lTidal)/(4*math.pi*semimajor**2))
-#Z = 1.17*np.abs(Z1*Z2*lPower)
-fig, ax = plt.subplots()
-CS = plt.contourf(X, Y, Z,cmap='cividis')
-cbar = plt.colorbar();
-cbar.set_label("Power due to Insolation & Tidal Heating - W/M^2")
-#ax.clabel(CS, inline=True, fontsize=10)
-plt.xlabel("Longitude")
-plt.ylabel("Latitude")
-plt.show()
-
-
-eccentricity = 0.001
-radiusMoon = 6370*1000
-semimajor = 20*radiusMoon
-K_2OverQ = 0.001
-mplanet = 25*5.97*(10**24)
-lTidal = ((21 / 2) * (K_2OverQ) * ((G) ** (3 / 2)) * ((mplanet) ** (5 / 2)) * ((radiusMoon) ** (5)) *
-          ((eccentricity) ** (2))) / (((semimajor) ** (15 / 2)))
-
-lPower = power+(lTidal)/(4*math.pi*semimajor**2)
-print("Power recieved by moon due to Tidal Heating eccentricity 0.001 = semimajor = 20*radiusMoon ",lPower)
-
-
-delta = 10
-x = np.arange(-180, 180, delta)
-y = np.arange(-90, 90, delta)
-X, Y = np.meshgrid(x, y)
-Z1 = np.cos(math.pi*X/180)
-Z2 = np.cos(math.pi*Y/180)
-Z = np.abs(Z1*Z2*power) + (lTidal)/(4*math.pi*semimajor**2)
-fig, ax = plt.subplots()
-CS = plt.contourf(X, Y, Z,cmap='cividis')
-cbar = plt.colorbar();
-cbar.set_label("Power due to Insolation & Tidal Heating - W/M^2")
-#ax.clabel(CS, inline=True, fontsize=10)
-plt.xlabel("Longitude")
-plt.ylabel("Latitude")
-plt.show()
-
-eccentricity = 0.05
-radiusMoon = 6370*1000
-semimajor = 5*radiusMoon
-K_2OverQ = 0.001
-mplanet = 25*5.97*(10**24)
-lTidal = ((21 / 2) * (K_2OverQ) * ((G) ** (3 / 2)) * ((mplanet) ** (5 / 2)) * ((radiusMoon) ** (5)) *
-          ((eccentricity) ** (2))) / (((semimajor) ** (15 / 2)))
-
-lPower = power+(lTidal)/(4*math.pi*semimajor**2)
-print("Power recieved by moon due to Tidal Heating eccentricity 0.05 = semimajor = 5*radiusMoon ",lPower)
-
-
-
-delta = 10
-x = np.arange(-180, 180, delta)
-y = np.arange(-90, 90, delta)
-X, Y = np.meshgrid(x, y)
-Z1 = np.cos(math.pi*X/180)
-Z2 = np.cos(math.pi*Y/180)
-Z = np.abs(Z1*Z2*power) + (lTidal)/(4*math.pi*semimajor**2)
-fig, ax = plt.subplots()
-CS = plt.contourf(X, Y, Z,cmap='cividis')
-cbar = plt.colorbar();
-cbar.set_label("Power due to Insolation & Tidal Heating - W/M^2")
-#ax.clabel(CS, inline=True, fontsize=10)
-plt.xlabel("Longitude")
-plt.ylabel("Latitude")
-
-plt.show()
-
-eccentricity = 0.05
-radiusMoon = 6370*1000
-semimajor = 20*radiusMoon
-K_2OverQ = 0.01
-mplanet = 25*5.97*(10**24)
-lTidal = ((21 / 2) * (K_2OverQ) * ((G) ** (3 / 2)) * ((mplanet) ** (5 / 2)) * ((radiusMoon) ** (5)) *
-          ((eccentricity) ** (2))) / (((semimajor) ** (15 / 2)))
-
-lPower = power+(lTidal)/(4*math.pi*semimajor**2)
-print("Power recieved by moon due to Tidal Heating eccentricity 0.05 = semimajor = 20*radiusMoon ",lPower)
-
-
-delta = 10
-x = np.arange(-180, 180, delta)
-y = np.arange(-90, 90, delta)
-X, Y = np.meshgrid(x, y)
-Z1 = np.cos(math.pi*X/180)
-Z2 = np.cos(math.pi*Y/180)
-Z = np.abs(Z1*Z2*power) + (lTidal)/(4*math.pi*semimajor**2)
-fig, ax = plt.subplots()
-CS = plt.contourf(X, Y, Z,cmap='cividis')
-cbar = plt.colorbar();
-cbar.set_label("Power due to Insolation & Tidal Heating - W/M^2")
-#ax.clabel(CS, inline=True, fontsize=10)
-plt.xlabel("Longitude")
-plt.ylabel("Latitude")
-plt.show()
-
-
-radiusMoon = 1560*1000
-semimajor = 671000*1000
-K_2OverQ = 0.01
-mplanet = 1.9*(10**27)
-
-distance = 5
-albedo = 0.3
-power = powerFromAlbedoL(distance, radiusMoon, albedo)
-print("Power received by moon @ 0.3 Albedo = ",power)
-
-lstPower = []
-lstEccentricity = []
-
-for eccentricity in np.arange(0.005,1,0.005):
-    lTidal = ((21 / 2) * (K_2OverQ) * ((G) ** (3 / 2)) * ((mplanet) ** (5 / 2)) * ((radiusMoon) ** (5)) *
-              ((eccentricity) ** (2))) / (((semimajor) ** (15 / 2)))
-    lPower = (power + lTidal) / (4 * math.pi * semimajor ** 2)
-    lstPower.append(lPower)
-    lstEccentricity.append(eccentricity)
-
-npPower = np.array(lstPower)
-npEccentricity = np.array(lstEccentricity)
-plt.subplots()
-plt.scatter(npEccentricity, npPower, s=5, c='black')
-
-xs = npEccentricity  # semiMajor
-ys = npPower  # temperatureMoons
-
-xmin, xmax = plt.xlim()
-ymin, ymax = plt.ylim()
-
-plt.xlim(xmin, xmax)
-plt.ylim(ymin, ymax)
-
-plt.xlabel("Eccentricity")
-plt.ylabel("Power [W/M^2")
-plt.show()
-
-
-lstPower = []
-lstPhi = []
-for phi in np.arange(0,21,0.05):
-    #tempphi = phi*2
-    if(phi <= 2):
-
-        yVal = -(phi**2)/15+1
-        lPower = yVal*(13.5**2)
-        lstPower.append(lPower)
-        lstPhi.append(phi)
-    elif(phi >= 10.25 and phi <= 10.75):
-        yVal = 0.5*(13.5**2)
-        lPower = yVal
-        if ((phi == 10.25) or (phi == 10.75)):
-            for i in np.arange(0.5*(13.5**2),5.55*(13.5**2),0.05):
-                lstPower.append(i)
-                lstPhi.append(phi)
-        else:
-            lstPower.append(lPower)
-            lstPhi.append(phi)
-    elif((phi > 2 and phi < 10.25) or (phi > 10.75 and phi < 19)):
-        yVal = -((phi-10.5)**2)/15+5.55
-        lPower = yVal*(13.5**2) #-np.cosh(yVal / 5 - 1) + 9.5
-        lstPower.append(lPower)
-        lstPhi.append(phi)
-    elif(phi >= 19):
-        yVal = ((phi-19)**(1/2))/15+.75
-        lPower = yVal*(13.5**2)
-        lstPower.append(lPower)
-        lstPhi.append(phi)
-
-npPower = np.array(lstPower)
-npPhi = np.array(lstPhi)
-plt.subplots()
-plt.scatter(npPhi/20, npPower, s=5, c='black')
-
-xs = npPhi  # semiMajor
-ys = npPower  # temperatureMoons
-
-xmin, xmax = plt.xlim()
-ymin, ymax = plt.ylim()
-
-plt.xlim(xmin, xmax)
-plt.ylim(ymin, ymax)
-
-plt.xlabel("Exomoon orbital phase ")
-plt.ylabel("Total Irradiation [W/M^2]")
-plt.show()
-
-
-
-lstPower = []
-lstPhi = []
-for phi in np.arange(0,21,0.005):
-    #tempphi = phi*2
-    if(phi < 7.75):
-        yVal = -50*((phi-4)**2) + 1000
-        #yVal = -((phi-4)**2)/15+1
-        lPower = yVal
-        lstPower.append(lPower)
-        lstPhi.append(phi)
-    elif(phi >= 7.75):
-        yVal = 0.5
-        lPower = yVal
-        if ((phi == 7.75) ):
-            for i in np.arange(0.5,296.875,0.005):
-                lstPower.append(i)
-                lstPhi.append(phi)
-        else:
-            lstPower.append(lPower)
-            lstPhi.append(phi)
-
-npPower = np.array(lstPower)
-npPhi = np.array(lstPhi)
-plt.subplots()
-plt.scatter(npPhi/20, npPower, s=5, c='black')
-
-xs = npPhi  # semiMajor
-ys = npPower  # temperatureMoons
-
-xmin, xmax = plt.xlim()
-ymin, ymax = plt.ylim()
-
-plt.xlim(xmin, xmax)
-plt.ylim(ymin, ymax)
-
-plt.xlabel("Exomoon orbital phase ")
-plt.ylabel("Total Irradiation [W/M^2]")
-plt.show()
-
-
 print ("Power 0 = ",normed_MoonPowStelFluxPlusTidalNP[0], "Distance 0 = ", lstPlanet1dnew[0]+lstMoon1dnew[0])
 print ("Power 2 = ",normed_MoonPowStelFluxPlusTidalNP[2], "Distance 1 = ", lstPlanet1dnew[1]+lstMoon1dnew[1])
 print ("Power 8 = ",normed_MoonPowStelFluxPlusTidalNP[8], "Distance 2 = ", lstPlanet1dnew[2]+lstMoon1dnew[2])
@@ -1995,20 +1195,11 @@ print("The shape of Power",normed_MoonPowStelFluxPlusTidal2DNP.shape)
 
 print("Test Power Array Plus",normed_MoonPowStelFluxPlusTidal2DNP)
 
-#Test Moon's Tidal Heating
-K_2OverQ = 0.01
-semimajor = 384748*1000
-radiusMoon = 1737*1000
-mplanet = 5.97*(10**24)
-eccentricity = 0.0549
-lMoonTidal = ((21 / 2) * (K_2OverQ) * ((G) ** (3 / 2)) * ((mplanet) ** (5 / 2)) * ((radiusMoon) ** (5)) *
-          ((eccentricity) ** (2))) / (((semimajor) ** (15 / 2)))
-
 interp = 'bilinear'
 fig, axs = plt.subplots()
-plt.axis([0,0.4,0,30.5])
+plt.axis([0,0.4,0,30])
 print("Arc Sin Earth Insolation =",np.arcsinh(1.75*10**17))
-points = axs.imshow(normed_MoonPowStelFluxPlusTidal2DNP/np.arcsinh(1.75*10**17), extent = [0,0.4,0,30.5], origin='lower', interpolation=interp, aspect = "auto")
+points = axs.imshow(normed_MoonPowStelFluxPlusTidal2DNP/np.arcsinh(1.75*10**17), extent = [0,0.4,0,30], origin='lower', interpolation=interp, aspect = "auto")
 axs.set_xlabel('Semi Major Axis of Exomoons [AU]')
 axs.set_ylabel('Semi Major Axis of Planets [AU]')
 print("points = ",points)
@@ -2020,8 +1211,8 @@ plt.close()
 
 interp = 'bilinear'
 fig, axs = plt.subplots()
-plt.axis([0,0.4,0,30.5])
-points = axs.imshow(normed_MoonPowStelFluxMinusTidal2DNP/np.arcsinh(lIOTidal), extent = [0,0.4,0,30.5], origin='lower', interpolation=interp, aspect = "auto")
+plt.axis([0,0.4,0,30])
+points = axs.imshow(normed_MoonPowStelFluxMinusTidal2DNP/np.arcsinh(lIOTidal), extent = [0,0.4,0,30], origin='lower', interpolation=interp, aspect = "auto")
 axs.set_xlabel('Semi Major Axis of Exomoons [AU]')
 axs.set_ylabel('Semi Major Axis of Planets [AU]')
 cbar = fig.colorbar(points)
@@ -2031,8 +1222,8 @@ print("Test Power Array Minus",normed_MoonPowStelFluxMinusTidal2DNP)
 
 interp = 'bilinear'
 fig, axs = plt.subplots()
-plt.axis([0,0.4,0,30.5])
-points = axs.imshow(normed_MoonPowStelFluxMinusTidal2DNP/np.arcsinh(lIOTidal), extent = [0,0.4,0,30.5], origin='lower', interpolation=interp, aspect = "auto")
+plt.axis([0,0.4,0,30])
+points = axs.imshow(normed_MoonPowStelFluxMinusTidal2DNP/np.arcsinh(lIOTidal), extent = [0,0.4,0,30], origin='lower', interpolation=interp, aspect = "auto")
 axs.set_xlabel('Semi Major Axis of Exomoons [AU]')
 axs.set_ylabel('Semi Major Axis of Planets [AU]')
 cbar = fig.colorbar(points)
@@ -2042,8 +1233,8 @@ plt.show()
 
 interp = 'bilinear'
 fig, axs = plt.subplots()
-plt.axis([0,0.4,0,30.5])
-points = axs.imshow(normed_MoonPowStelFlux2DNP/np.arcsinh(1.75*10**17), extent = [0,0.4,0,30.5], origin='lower', interpolation=interp, aspect = "auto")
+plt.axis([0,0.4,0,30])
+points = axs.imshow(normed_MoonPowStelFlux2DNP/np.arcsinh(1.75*10**17), extent = [0,0.4,0,30], origin='lower', interpolation=interp, aspect = "auto")
 axs.set_xlabel('Semi Major Axis of Exomoons [AU]')
 axs.set_ylabel('Semi Major Axis of Planets [AU]')
 print("points = ",points)
@@ -2055,41 +1246,8 @@ plt.close()
 
 interp = 'bilinear'
 fig, axs = plt.subplots()
-plt.axis([0,0.4,0,30.5])
-points = axs.imshow(normed_MoonPowTidal2DNP/np.arcsinh(lIOTidal), extent = [0,0.4,0,30.5], origin='lower', interpolation=interp, aspect = "auto")
-
-lTidal = []
-lTidal1d = []
-lTidal1d.append(np.arcsinh(lMoonTidal)/np.arcsinh(lIOTidal))
-lTidal.append(lTidal1d)
-
-normed_Tidal =  np.array(lTidal)
-
-print ("Normed Moon Tidal", normed_Tidal)
-
-points = axs.imshow(normed_Tidal, extent = [0.0020,0.0075,1,1.1], origin='lower', interpolation=interp, aspect = "auto")
-
-lTidal = []
-lTidal1d = []
-lTidal1d.append(np.arcsinh(lIOTidal)/np.arcsinh(lIOTidal))
-lTidal.append(lTidal1d)
-normed_Tidal =  np.array(lTidal)
-print ("Normed IO Tidal", normed_Tidal)
-
-points = axs.imshow(normed_Tidal, extent = [0.0020,0.0075,5.1,5.2], origin='lower', interpolation=interp, aspect = "auto")
-
-
-
-#axs.scatter(0.0025,np.arcsinh(lMoonTidal)/np.arcsinh(lIOTidal), s=10, c='b')
-#axs.scatter(0.003,np.arcsinh(lIOTidal)/np.arcsinh(lIOTidal), s=10, c='r')
-
-print("Moon Tidal Heating Watt = ",lMoonTidal)
-print("Moon Tidal Heating in arcsinh= ",np.arcsinh(lMoonTidal))
-
-print("IO Tidal Heating Watt = ",lIOTidal)
-print("IO Tidal Heating in arcsinh= ",np.arcsinh(lIOTidal))
-
-
+plt.axis([0,0.4,0,30])
+points = axs.imshow(normed_MoonPowTidal2DNP/np.arcsinh(lIOTidal), extent = [0,0.4,0,30], origin='lower', interpolation=interp, aspect = "auto")
 axs.set_xlabel('Semi Major Axis of Exomoons [AU]')
 axs.set_ylabel('Semi Major Axis of Planets [AU]')
 cbar = fig.colorbar(points)
@@ -2205,11 +1363,8 @@ lstRootMean = []
 lstTemp = []
 lstEscapeRate = []
 colors = []
-colorsoutgass = []
-numberDensity = 10**8 #Number of Molecules in exosphere/m^3
 
-lstOutgassUB = []
-lstOutgassLB = []
+numberDensity = 10**8 #Number of Molecules in exosphere/m^3
 
 for temp in range (200,2200,1):
     #Root Mean Most Probable Vel of Gases in Exosphere @ 300k
@@ -2248,9 +1403,7 @@ for temp in range (200,2200,1):
         -escapeVel ** 2 / rootMeanVelofOxygen ** 2)
     print ("Oxygen Escape Rate is /m^2/s", PhiEscape, "at", temp, "Escape Vel of Body = ",escapeVel)
     lstEscapeRate.append(PhiEscape)
-    lstOutgassLB.append(0.01*PhiEscape)
-    lstOutgassUB.append(3.5*PhiEscape)
-    colorsoutgass.append('blue')
+
     #PhiEscape = (numberDensity * rootMeanVelofNitrogen) * ((escapeVel ** 2 / rootMeanVelofNitrogen ** 2) + 1) * np.exp(
     #    -escapeVel ** 2 / rootMeanVelofNitrogen ** 2)
     #print ("Nitrogen Escape Rate is /m^2/s", PhiEscape, "at", temp)
@@ -2260,17 +1413,11 @@ for temp in range (200,2200,1):
         -escapeVel ** 2 / rootMeanVelofHelium ** 2)
     print ("Helium Escape Rate is /m^2/s", PhiEscape, "at", temp)
     lstEscapeRate.append(PhiEscape)
-    lstOutgassLB.append(0.01 * PhiEscape)
-    lstOutgassUB.append(3.5*PhiEscape)
-    colorsoutgass.append('black')
 
     PhiEscape = (numberDensity * rootMeanVelofHydrogen) * ((escapeVel ** 2 / rootMeanVelofHydrogen ** 2) + 1) * np.exp(
         -escapeVel ** 2 / rootMeanVelofHydrogen ** 2)
     print ("Hydrogen Escape Rate is /m^2/s", PhiEscape, "at", temp)
     lstEscapeRate.append(PhiEscape)
-    lstOutgassLB.append(0.01 * PhiEscape)
-    lstOutgassUB.append(3.5*PhiEscape)
-    colorsoutgass.append('maroon')
 
     #PhiEscape = (numberDensity * rootMeanVelofCarbonDiOxide) * ((escapeVel ** 2 / rootMeanVelofCarbonDiOxide ** 2) + 1) * np.exp(
     #    -(escapeVel) ** 2 / rootMeanVelofCarbonDiOxide ** 2)
@@ -2280,8 +1427,6 @@ for temp in range (200,2200,1):
 npRootMean = np.array(lstRootMean)
 npTemp = np.array(lstTemp)
 npEscapeRate = np.array(lstEscapeRate)
-npOutgassRateLB = np.array(lstOutgassUB)
-npOutgassRateUB = np.array(lstOutgassUB)
 
 fig,ax = plt.subplots()
 plt.scatter(npTemp, npRootMean, s=1, c=colors)
@@ -2307,8 +1452,6 @@ plt.show()
 
 fig,ax =plt.subplots()
 plt.scatter(npTemp, np.log(npEscapeRate),s=1, c=colors)
-#plt.scatter(npTemp, np.log(npOutgassRateLB), s=1, c=colorsoutgass)
-plt.scatter(npTemp, np.log(npOutgassRateUB), s=1, c=colorsoutgass)
 
 xs = npTemp  # semiMajor
 ys = npEscapeRate  # temperatureMoons
@@ -2322,12 +1465,8 @@ plt.ylim(ymin, ymax)
 red_patch = mpatches.Patch(color = 'red', label = 'Escape Rate of Helium')
 yellow_patch = mpatches.Patch(color = 'yellow', label = 'Escape Rate of Hydrogen')
 green_patch = mpatches.Patch(color = 'green', label = 'Escape Rate of Oxygen')
-black_patch = mpatches.Patch(color = 'black', label = 'Outgassing Rate of Helium')
-maroon_patch = mpatches.Patch(color = 'maroon', label = 'Outgassing Rate of Hydrogen')
-blue_patch = mpatches.Patch(color = 'blue', label = 'Outgassing Rate of Oxygen')
-ax.legend(handles = [red_patch,yellow_patch,green_patch,black_patch,maroon_patch,blue_patch])
+ax.legend(handles = [red_patch,yellow_patch,green_patch])
 
 plt.xlabel("Temperature of Exospheres [K]")
 plt.ylabel("Escape Rate in log scale[Particles /M^2/S]")
 plt.show()
-
